@@ -1,4 +1,4 @@
-require_relative '../../../lib/2/finder'
+require_relative '../../../lib/ex2/finder'
 
 RSpec.shared_examples_for 'a finder' do |size, pairs = []|
   let(:finder) { described_class.new(size, arr) }
