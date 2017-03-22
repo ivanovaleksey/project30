@@ -38,7 +38,7 @@ RSpec.shared_examples_for 'a finder' do |size, pairs = []|
   end
 end
 
-RSpec.describe Finder do
+RSpec.describe Ex2::Finder do
   describe '#call' do
     subject { finder.call }
 
