@@ -26,13 +26,13 @@ module Ex2
         to_find -= 1
         @missing << k
       end
-      spawn_coroutine(0, array.size - 1, to_find, offset)
+      spawn_subroutine(0, array.size - 1, to_find, offset)
       missing.sort
     end
 
     private
 
-    def spawn_coroutine(left, right, to_find, offset = 0)
+    def spawn_subroutine(left, right, to_find, offset = 0)
       @iterations += 1
       middle = left + (right - left) / 2
 
@@ -82,23 +82,23 @@ module Ex2
       case skips_count
       when 2
         lhs_to_find = to_find - left_skips
-        spawn_coroutine(left, middle - 1, lhs_to_find, offset) if lhs_to_find.positive?
+        spawn_subroutine(left, middle - 1, lhs_to_find, offset) if lhs_to_find.positive?
       when 1
         # TODO: should check if we already find left/right skip?
         # to_find -= 1
         lhs_to_find = [1, to_find - left_skips].min
         # lhs_to_find = to_find - left_skips
-        spawn_coroutine(left, middle - 1, lhs_to_find, offset) if lhs_to_find.positive?
+        spawn_subroutine(left, middle - 1, lhs_to_find, offset) if lhs_to_find.positive?
 
         # extract additional 1 since we just have spawned LHS coroutine
         to_find -= 1
         rhs_to_find = to_find - right_skips
-        spawn_coroutine(middle + 1, right, rhs_to_find, 1) if rhs_to_find.positive?
+        spawn_subroutine(middle + 1, right, rhs_to_find, 1) if rhs_to_find.positive?
       when 0
         # rhs_to_find = [to_find, 2 - right_skips].min
         rhs_to_find = to_find - right_skips
         offset = right_skips.positive? ? 1 : offset
-        spawn_coroutine(middle + 1, right, rhs_to_find, offset) if rhs_to_find.positive?
+        spawn_subroutine(middle + 1, right, rhs_to_find, offset) if rhs_to_find.positive?
       end
     end
   end
