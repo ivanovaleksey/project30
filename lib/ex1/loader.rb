@@ -13,8 +13,10 @@ module Ex1
     end
 
     def call
-      links.each_slice(PER_FOLDER).each_with_index do |folder_slice, index|
-        dir = dir_name(index + 1)
+      iter = links.each_slice(PER_FOLDER)
+      length = iter.size.to_s.length
+      iter.each_with_index do |folder_slice, index|
+        dir = dir_name(index + 1, length)
         prepare_dir(dir)
 
         folder_slice.each_slice(CONCURRENCY) do |slice|
@@ -35,8 +37,9 @@ module Ex1
       FileUtils.mkdir_p(dir_name) unless Dir.exist?(dir_name)
     end
 
-    def dir_name(index)
-      base_dir.join(index.to_s)
+    def dir_name(index, length)
+      name = index.to_s.rjust(length, '0')
+      base_dir.join(name)
     end
 
     def store_image(link, dir)
