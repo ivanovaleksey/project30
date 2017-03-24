@@ -1,4 +1,4 @@
-require_relative '../../../lib/ex8/scheduler.rb'
+require_relative '../../lib/ex8/scheduler.rb'
 
 RSpec.describe Ex8::Scheduler do
   let(:scheduler) { described_class.new(args) }
